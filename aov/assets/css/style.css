@@ -1,0 +1,883 @@
+@font-face {
+    font-family: "Cal Sans";
+    src: url("../fonts/CalSans-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none !important;
+}
+
+img {
+    -webkit-user-drag: none;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
+html {
+    min-height: 100%;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    background: linear-gradient(180deg, #353994 0%, #555bb0 100%);
+    background-attachment: fixed;
+    color: #f5f3ec;
+    font-family:
+        "Cal Sans",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        "Oxygen",
+        "Ubuntu",
+        "Cantarell",
+        "Fira Sans",
+        "Droid Sans",
+        "Helvetica Neue",
+        sans-serif;
+    letter-spacing: 0.055em;
+    word-spacing: 0.06em;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    scrollbar-width: none !important;
+    -ms-overflow-style: none !important;
+}
+
+html.lang-vn,
+html.lang-vn body {
+    letter-spacing: 0.055em;
+    word-spacing: 0.06em;
+    font-family:
+        "Cal Sans",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        "Oxygen",
+        "Ubuntu",
+        "Cantarell",
+        "Fira Sans",
+        "Droid Sans",
+        "Helvetica Neue",
+        sans-serif;
+}
+
+.bodyMask {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bodyMask > .bodyMaskLeft {
+    position: absolute;
+    width: 301px;
+    height: 251px;
+    object-fit: cover;
+    background-size: 100% 100%;
+    bottom: 0;
+    left: 0;
+    padding-left: constant(safe-area-inset-left);
+    padding-left: env(safe-area-inset-left);
+    padding-right: constant(safe-area-inset-right);
+    padding-right: env(safe-area-inset-right);
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+}
+
+.bodyMask > .bodyMaskRight {
+    position: absolute;
+    width: 273px;
+    height: 213px;
+    object-fit: cover;
+    background-size: 100% 100%;
+    bottom: 0;
+    right: 0;
+    pointer-events: none;
+    user-select: none;
+}
+
+.bodyMask > .bodyMaskMiddle {
+    position: absolute;
+    width: 454px;
+    height: 393px;
+    object-fit: cover;
+    background-size: 100% 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+}
+
+.camp-poster-page-layout__mask {
+    pointer-events: none;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+}
+
+.camp-poster-page-layout__mask-top-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+}
+
+.camp-poster-page-layout__mask-top-left img {
+    display: block;
+    object-fit: contain;
+    object-position: top left;
+    max-width: 440px;
+    width: 32vw;
+    min-width: 180px;
+    pointer-events: none;
+    user-select: none;
+}
+
+.camp-poster-page-layout__mask-bottom-right {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    box-sizing: border-box;
+}
+
+.camp-poster-page-layout__mask-bottom-right img {
+    display: block;
+    object-fit: contain;
+    object-position: bottom right;
+    max-width: 440px;
+    width: 32vw;
+    min-width: 180px;
+    pointer-events: none;
+    user-select: none;
+}
+
+.camp-poster-editor-layout__mask-gradient-left {
+    pointer-events: none;
+    background: linear-gradient(
+        270deg,
+        rgba(42, 43, 87, 0) 0%,
+        rgba(42, 43, 87, 0.8) 100%
+    );
+    width: 220px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.app-container {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+    width: 100%;
+    margin: auto 0;
+    padding: 36px 20px;
+}
+
+.app-card {
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        padding: 24px 16px;
+    }
+    .camp-poster-editor-layout__mask-gradient-left {
+        width: 80px;
+        opacity: 0.4;
+    }
+    .camp-poster-page-layout__mask-top-left img,
+    .camp-poster-page-layout__mask-bottom-right img {
+        max-width: 130px;
+        min-width: 90px;
+        opacity: 0.65;
+    }
+    .bodyMask > .bodyMaskLeft {
+        width: 160px;
+        height: 130px;
+        opacity: 0.55;
+    }
+    .bodyMask > .bodyMaskRight {
+        width: 150px;
+        height: 120px;
+        opacity: 0.55;
+    }
+    .bodyMask > .bodyMaskMiddle {
+        width: 280px;
+        height: 240px;
+        opacity: 0.45;
+    }
+}
+
+.field {
+    margin-bottom: 18px;
+}
+
+.field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8d95ab;
+    margin-bottom: 8px;
+}
+
+.field-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.field-label-row label {
+    margin-bottom: 0;
+}
+
+.paste-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: rgba(255, 255, 255, 0.16);
+    border: none;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+}
+
+.paste-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.28);
+}
+
+.tab-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.tab-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.16);
+    border: none;
+    border-radius: 4px;
+    padding: 10px 12px;
+    cursor: pointer;
+    user-select: none;
+    letter-spacing: 0.06em;
+}
+
+.btn-ghost,
+.btn-primary {
+    letter-spacing: 0.06em;
+}
+
+.tab-btn:hover:not(.active) {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.24);
+}
+
+.tab-btn.active {
+    color: #ffffff;
+    background: linear-gradient(86.65deg, #4b50e0 2.93%, #6d6acc 103.68%);
+}
+
+.tab-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: inherit;
+    text-align: center;
+    width: 100%;
+}
+
+.camp-with-title {
+    flex-direction: column;
+    display: flex;
+    margin-bottom: 18px;
+}
+
+.camp-with-title__title {
+    color: #ffffff;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    overflow: hidden;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.camp-with-title__content {
+    min-height: 0;
+    flex: 1;
+}
+
+.camp-game-textarea {
+    color: #ffffff;
+    caret-color: #ffffff;
+    box-sizing: border-box;
+    resize: none;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 4px;
+    outline: none;
+    width: 100%;
+    min-height: 84px;
+    height: 84px;
+    padding: 10px 12px;
+    font-size: 13px;
+    font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+    display: block;
+    line-height: 1.55;
+    word-break: break-all;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.camp-game-textarea::-webkit-scrollbar {
+    display: none;
+}
+
+.camp-game-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.camp-game-textarea:focus {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.camp-game-textarea--unavailable {
+    border: 1px solid #f76060;
+}
+
+.file-dropzone {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 84px;
+    height: 84px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px dashed rgba(255, 255, 255, 0.35);
+    border-radius: 4px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 13px;
+    overflow: hidden;
+    user-select: none;
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.file-dropzone:hover,
+.file-dropzone.drag {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.file-dropzone strong {
+    color: #ffffff;
+    font-weight: normal;
+    font-size: 13px;
+}
+
+.file-dropzone-subtext {
+    margin-top: 2px;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.file-dropzone input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.divider {
+    height: 1px;
+    background: #2d3460;
+    margin: 20px 0;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-primary {
+    width: 100%;
+    height: 44px;
+    min-height: 44px;
+    position: relative;
+    color: #ffffff;
+    background:
+        url(../imgs/buttons/primary-decorate.webp) 50% / contain no-repeat,
+        linear-gradient(#bf8357 0%, #dfb16d 100%);
+    border-radius: 4px;
+    box-shadow:
+        inset 0 1px #dca369,
+        inset 0 -2px #ffcb78;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.btn-primary:hover {
+    filter: brightness(1.06);
+}
+
+.btn-primary:active {
+    filter: brightness(0.94);
+}
+
+.btn-ghost {
+    width: 100%;
+    height: 40px;
+    min-height: 40px;
+    color: #ffffff;
+    background:
+        url(../imgs/buttons/secondary-decorate.webp) 50% / contain no-repeat,
+        linear-gradient(#5867c0 0%, #7b9be6 100%);
+    border-radius: 4px;
+    box-shadow:
+        inset 0 1px #688cdb,
+        inset 0 -2px #80abff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.btn-ghost:hover {
+    filter: brightness(1.06);
+}
+
+.btn-ghost:active {
+    filter: brightness(0.94);
+}
+
+.hidden {
+    display: none !important;
+}
+
+.footer-credit {
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 13px;
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, sans-serif;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 0.02em;
+    word-spacing: 0;
+    user-select: none;
+}
+
+.footer-heart {
+    color: #ff4757;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 1;
+    animation: heartPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes heartPulse {
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.85;
+    }
+    50% {
+        transform: scale(1.22);
+        opacity: 1;
+    }
+}
+
+.footer-author {
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    background: linear-gradient(
+        90deg,
+        #ffe182 0%,
+        #ff9ff3 25%,
+        #54a0ff 50%,
+        #00d2d3 75%,
+        #ffe182 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: neonShimmer 3.5s linear infinite;
+    filter: drop-shadow(0 0 5px rgba(255, 225, 130, 0.45));
+    transition: filter 0.25s ease;
+    display: inline-block;
+}
+
+.footer-author:hover {
+    filter: drop-shadow(0 0 10px rgba(84, 160, 255, 0.85)) brightness(1.2);
+}
+
+@keyframes neonShimmer {
+    0% {
+        background-position: 0% center;
+        filter: drop-shadow(0 0 4px rgba(255, 225, 130, 0.45));
+    }
+    50% {
+        background-position: 100% center;
+        filter: drop-shadow(0 0 8px rgba(84, 160, 255, 0.75));
+    }
+    100% {
+        background-position: 200% center;
+        filter: drop-shadow(0 0 4px rgba(255, 225, 130, 0.45));
+    }
+}
+
+.adm-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 0.2s ease,
+        visibility 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.adm-mask.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.adm-mask-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.camp-game-model {
+    z-index: 1000;
+    position: relative;
+    max-width: 440px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.camp-game-model__container {
+    background: linear-gradient(#333469 0%, #4d559d 100%);
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    flex-direction: column;
+    width: 100%;
+    max-width: 420px;
+    min-height: 180px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+}
+
+.camp-game-model__close {
+    cursor: pointer;
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    top: 11px;
+    right: 14px;
+    width: 20px;
+    height: 20px;
+}
+
+.camp-game-model__close-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.camp-game-model__close-icon img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.camp-game-model__header {
+    color: #fae7bd;
+    border-top: 1px solid #7d5f56;
+    border-bottom: 1px solid #7d5f56;
+    align-items: center;
+    font-weight: 500;
+    display: flex;
+    position: relative;
+    height: 42px;
+    overflow: hidden;
+}
+
+.camp-game-model__header-bg {
+    object-fit: contain;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.camp-game-model__header-bg img {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 268 / 65;
+    display: block;
+}
+
+.camp-game-model__title {
+    z-index: 1;
+    color: #fae7bd;
+    font-weight: 500;
+    position: relative;
+    font-size: 16px;
+    margin-left: 16px;
+}
+
+.camp-game-model__content {
+    color: rgba(255, 255, 255, 0.92);
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+        Arial, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    word-spacing: 0;
+    box-sizing: border-box;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 24px 22px;
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.camp-game-model__footer {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding: 0 20px 20px;
+    gap: 12px;
+}
+
+.camp-game-model__btn {
+    white-space: nowrap;
+    box-sizing: border-box;
+    flex: none;
+    min-width: 140px;
+    height: 38px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.faq-card {
+    margin-top: 18px;
+    width: 100%;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+.faq-item {
+    background: rgba(0, 0, 0, 0.22);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.faq-item:hover {
+    border-color: rgba(240, 185, 63, 0.35);
+    background: rgba(0, 0, 0, 0.32);
+}
+
+.faq-question {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fae7bd;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-align: left;
+    user-select: none;
+}
+
+.faq-question span {
+    flex: 1;
+    padding-right: 10px;
+    letter-spacing: 0.06em;
+}
+
+.faq-chevron {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    color: rgba(250, 231, 189, 0.7);
+}
+
+.faq-item.active .faq-chevron {
+    transform: rotate(180deg);
+    color: #fae7bd;
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition:
+        max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        padding 0.3s ease;
+    color: rgba(255, 255, 255, 0.85);
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 0 14px;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 1200px;
+    padding: 0 14px 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 10px;
+}
+
+.faq-steps {
+    margin-top: 6px;
+    padding-left: 18px;
+}
+
+.faq-steps li {
+    margin-bottom: 4px;
+}
+
+.faq-tag-disclaimer {
+    display: inline-block;
+    font-size: 11px;
+    color: #ffd873;
+    background: rgba(240, 185, 63, 0.15);
+    padding: 2px 8px;
+    border-radius: 3px;
+    border: 1px solid rgba(240, 185, 63, 0.3);
+    margin-bottom: 8px;
+}
