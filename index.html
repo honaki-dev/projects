@@ -3,6 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="https://honaki.is-a.dev/favicon.ico"
+        />
+        <title>Honaki's Projects</title>
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss-browser/4.3.3/index.global.min.js"
             integrity="sha512-hULGJIctuLmo0B/LLdCfni+smSwvSag6ZyCEVnJuX5lDBuxZMhCLZQ3kgN+d0ZP4Uu/VMYDKksb7m+7YpOhwfg=="
@@ -19,7 +25,7 @@
     <body
         class="bg-slate-50 antialiased text-slate-600 select-none transition-colors duration-300 dark:bg-slate-950 dark:text-slate-300"
     >
-        <div class="max-w-[1200px] w-full md:mx-auto py-10 md:px-2 px-4">
+        <div class="max-w-[1200px] w-full md:mx-auto py-10 px-4">
             <h1
                 class="text-4xl text-center mb-10 font-bold text-slate-900 dark:text-white"
             >
@@ -55,6 +61,8 @@
                     <div class="flex gap-3 mt-4">
                         <a
                             href="${p.redirect}"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             class="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-slate-700 text-sm font-medium transition-colors hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
                         >
                             <i class="fa-solid fa-globe"></i>
@@ -62,6 +70,8 @@
                         </a>
                         <a
                             href="${p.github}"
+                            target="_blank"
+                            rel="noopener noreferrer"
                             class="flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium transition-colors hover:bg-slate-800 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-300"
                         >
                             <i class="fa-brands fa-github text-lg"></i>
