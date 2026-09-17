@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="vi" class="lang-vn">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Đổi Ảnh Load Trận Liên Quân Mobile</title>
+
+        <link rel="icon" href="assets/imgs/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="assets/imgs/favicon.ico" />
+        <link rel="canonical" href="https://aov.honaki.site/" />
+
+        <meta
+            name="description"
+            content="Công cụ tạo liên kết chuyển hướng và hỗ trợ tùy biến ảnh loading trận Liên Quân Mobile trực tiếp trên AOV Camp an toàn, tiện lợi."
+        />
+        <meta
+            name="keywords"
+            content="đổi ảnh load trận liên quân, doi anh load tran lien quan, đổi ảnh loading liên quân, cách đổi ảnh load trận lqm, mod ảnh load trận liên quân, thay đổi ảnh load trận liên quân mobile, đổi background poster liên quân, tùy chỉnh ảnh loading aov, đổi ảnh flowborn liên quân, code inject đổi ảnh liên quân, aov background uploader, aov poster studio, kích thước ảnh load trận liên quân, đổi ảnh liên quân có bị ban không, honaki"
+        />
+        <meta name="author" content="Honaki Tran" />
+        <meta
+            name="robots"
+            content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+        <meta name="googlebot" content="index, follow" />
+
+        <meta
+            property="og:title"
+            content="Đổi Ảnh Load Trận Liên Quân Mobile"
+        />
+        <meta
+            property="og:description"
+            content="Công cụ tạo liên kết chuyển hướng và hỗ trợ tùy biến ảnh loading trận Liên Quân Mobile trực tiếp trên AOV Camp an toàn, tiện lợi."
+        />
+        <meta
+            property="og:image"
+            content="https://aov.honaki.site/assets/imgs/preview.jpg"
+        />
+        <meta
+            property="og:image:secure_url"
+            content="https://aov.honaki.site/assets/imgs/preview.jpg"
+        />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta
+            property="og:image:alt"
+            content="Đổi ảnh load trận Liên Quân Mobile"
+        />
+        <meta property="og:url" content="https://aov.honaki.site/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="Honaki Poster Studio" />
+        <meta property="og:locale" content="vi_VN" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+            name="twitter:title"
+            content="Đổi Ảnh Load Trận Liên Quân Mobile"
+        />
+        <meta
+            name="twitter:description"
+            content="Công cụ tạo liên kết chuyển hướng và hỗ trợ tùy biến ảnh loading trận Liên Quân Mobile trực tiếp trên AOV Camp an toàn, tiện lợi."
+        />
+        <meta
+            name="twitter:image"
+            content="https://aov.honaki.site/assets/imgs/preview.jpg"
+        />
+
+        <meta name="theme-color" content="#5056ac" />
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": "Đổi ảnh load trận Liên Quân Mobile",
+                "alternateName": [
+                    "AOV Poster Studio",
+                    "AOV BG Uploader",
+                    "Tool Đổi Ảnh Liên Quân"
+                ],
+                "url": "https://aov.honaki.site/",
+                "applicationCategory": "GameApplication",
+                "operatingSystem": "iOS, Android, Web",
+                "browserRequirements": "Requires JavaScript. Requires HTML5.",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "VND"
+                },
+                "description": "Công cụ tùy chỉnh và đổi ảnh loading trận Liên Quân Mobile trực tuyến miễn phí và an toàn.",
+                "author": {
+                    "@type": "Person",
+                    "name": "Honaki Tran",
+                    "url": "https://github.com/honaki-dev"
+                },
+                "image": "https://aov.honaki.site/assets/imgs/preview.jpg"
+            }
+        </script>
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": "Hướng dẫn cách đổi Ảnh Load Trận & Ảnh Load Flowborn?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Đối với Ảnh Load Trận: Bạn dán Link hoặc chọn File HAR rồi bấm Chuyển tới trang game, sau đó chạy Code Inject (Bookmarklet) để nút tải ảnh xuất hiện và áp dụng ảnh mới. Đối với Ảnh Load Flowborn: Bạn chọn tab Ảnh Load Flowborn và chuyển tới trang game, BẮT BUỘC PHẢI TẠO MỘT NHÃN DÁN (STICKER) MỚI trước, sau đó mới chạy Code Inject để nút đổi ảnh xuất hiện và áp dụng như bình thường."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Công cụ này có thuộc Garena không & Tuyên bố bản quyền ra sao?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Tuyên bố sở hữu trí tuệ: Liên Quân Mobile, Arena of Valor và AOV Camp là các thương hiệu và tài sản trí tuệ thuộc quyền sở hữu của Garena và Tencent Games / TiMi Studio Group. Dự án phi thương mại: Đây là công cụ tiện ích cá nhân do Honaki tự nghiên cứu và phát triển độc lập nhằm hỗ trợ người chơi, hoàn toàn không có mục đích thương mại, không liên kết, không thuộc quyền quản lý hay được ủy quyền bởi nhà phát hành."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Đổi ảnh load trận Liên Quân có an toàn và có bị khóa nick không?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Cảnh báo có rủi ro: Mặc dù đoạn mã Script chỉ thực thi cục bộ trên trình duyệt (Client-side), hiện tại nhà phát hành game đã bắt đầu áp dụng các chính sách rà soát và có thể áp dụng án phạt/khóa tài khoản đối với các hành vi can thiệp tùy chỉnh ảnh poster. Bạn nên cân nhắc kỹ trước khi trải nghiệm và tự chịu trách nhiệm đối với tài khoản game cá nhân của mình."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Web có lưu trữ Token hay thông tin tài khoản không?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "Không bao giờ. Mọi tác vụ phân tích file HAR, bóc tách token hoặc tạo URL đều xử lý trực tiếp trên trình duyệt của bạn. Hệ thống máy chủ không lưu trữ bất kỳ dữ liệu cá nhân hay file tải lên nào."
+                        }
+                    }
+                ]
+            }
+        </script>
+
+        <link
+            rel="preload"
+            as="font"
+            type="font/ttf"
+            crossorigin="anonymous"
+            href="assets/fonts/CalSans-Regular.ttf"
+        />
+        <link rel="stylesheet" href="assets/css/style.css?v=0.0.15" />
+    </head>
+    <body>
+        <div class="bodyMask">
+            <img
+                src="assets/imgs/background/left-mask.webp"
+                alt=""
+                width="320"
+                height="258"
+                draggable="false"
+                decoding="async"
+                class="bodyMaskLeft"
+            />
+            <img
+                src="assets/imgs/background/middle-mask.webp"
+                alt=""
+                width="454"
+                height="393"
+                draggable="false"
+                fetchpriority="high"
+                decoding="async"
+                class="bodyMaskMiddle"
+            />
+            <img
+                src="assets/imgs/background/right-mask.webp"
+                alt=""
+                width="300"
+                height="240"
+                draggable="false"
+                decoding="async"
+                class="bodyMaskRight"
+            />
+        </div>
+
+        <div class="camp-poster-page-layout__mask">
+            <div class="camp-poster-page-layout__mask-top-left">
+                <img
+                    src="assets/imgs/background/mask-top-left.webp"
+                    alt=""
+                    width="440"
+                    height="440"
+                    draggable="false"
+                    decoding="async"
+                />
+            </div>
+            <div class="camp-poster-page-layout__mask-bottom-right">
+                <img
+                    src="assets/imgs/background/mask-bottom-right.webp"
+                    alt=""
+                    width="440"
+                    height="440"
+                    draggable="false"
+                    decoding="async"
+                />
+            </div>
+        </div>
+
+        <div class="camp-poster-editor-layout__mask-gradient-left"></div>
+
+        <div class="adm-mask" id="modalOverlay" aria-hidden="true">
+            <div class="adm-mask-content">
+                <div class="camp-game-model">
+                    <div class="camp-game-model__container" id="modalBox">
+                        <div class="camp-game-model__close" id="modalCloseX">
+                            <div
+                                class="camp-game-model__close-icon camp-image--protected tica-image"
+                            >
+                                <img
+                                    src="assets/imgs/modal/close-icon.webp"
+                                    width="20"
+                                    height="20"
+                                    draggable="false"
+                                    decoding="async"
+                                    class="tica-image-img"
+                                    alt="Close"
+                                />
+                            </div>
+                        </div>
+                        <div class="camp-game-model__header">
+                            <div
+                                class="camp-game-model__header-bg camp-image--protected tica-image"
+                            >
+                                <img
+                                    src="assets/imgs/modal/model-top-bg.webp"
+                                    width="165"
+                                    height="40"
+                                    draggable="false"
+                                    decoding="async"
+                                    class="tica-image-img"
+                                    alt=""
+                                />
+                            </div>
+                            <div class="camp-game-model__title" id="modalTitle">
+                                Chú ý
+                            </div>
+                        </div>
+                        <div class="camp-game-model__content">
+                            <div id="modalMessage"></div>
+                        </div>
+                        <div class="camp-game-model__footer">
+                            <button
+                                type="button"
+                                class="btn-primary camp-game-model__btn"
+                                id="modalCloseBtn"
+                            >
+                                <span>Xác nhận</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="app-container">
+            <div class="app-card">
+                <div class="camp-with-title">
+                    <div class="camp-with-title__title">Xác Thực Tài Khoản</div>
+                    <div class="camp-with-title__content">
+                        <div class="tab-group">
+                            <button
+                                type="button"
+                                class="tab-btn active"
+                                id="modeLinkBtn"
+                            >
+                                <span class="tab-title">Link CAMP</span>
+                            </button>
+                            <button
+                                type="button"
+                                class="tab-btn"
+                                id="modeHarBtn"
+                            >
+                                <span class="tab-title">File HAR</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="camp-with-title">
+                    <div id="linkModeWrap">
+                        <div class="camp-with-title__title">
+                            <span>Link CAMP</span>
+                            <button
+                                type="button"
+                                class="paste-btn"
+                                id="pasteBtn"
+                            >
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    width="12"
+                                    height="12"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <rect
+                                        x="9"
+                                        y="9"
+                                        width="13"
+                                        height="13"
+                                        rx="2"
+                                        ry="2"
+                                    ></rect>
+                                    <path
+                                        d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                                    ></path>
+                                </svg>
+                                Dán
+                            </button>
+                        </div>
+                        <div class="camp-with-title__content">
+                            <div>
+                                <textarea
+                                    class="camp-game-textarea"
+                                    id="playerUrl"
+                                    placeholder="https://kgvn-camp.mobagarena.com/app/player-poster?..."
+                                ></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="harModeWrap" class="hidden">
+                        <div class="camp-with-title__title">File HAR</div>
+                        <div class="camp-with-title__content">
+                            <div class="file-dropzone" id="harDropzone">
+                                <div id="harDropzoneEmpty">
+                                    <div>
+                                        <strong>Chọn file .har</strong> hoặc kéo
+                                        thả vào khung
+                                    </div>
+                                </div>
+                                <div id="harDropzoneSelected" class="hidden">
+                                    <strong id="harDropzoneText"></strong>
+                                    <div class="file-dropzone-subtext">
+                                        Bấm hoặc kéo thả để chọn file khác
+                                    </div>
+                                </div>
+                                <input
+                                    type="file"
+                                    id="harFileInput"
+                                    accept=".har,.json,application/json,text/plain,text/json,*/*"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; flex-direction: column">
+                    <button
+                        class="btn-ghost"
+                        id="copyInjectBtn"
+                        style="width: 100%; font-size: 12px"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            width="14"
+                            height="14"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            style="margin-right: 6px"
+                        >
+                            <rect
+                                x="9"
+                                y="9"
+                                width="13"
+                                height="13"
+                                rx="2"
+                                ry="2"
+                            ></rect>
+                            <path
+                                d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                            ></path>
+                        </svg>
+                        Copy Code Inject
+                    </button>
+                    <div class="tab-group">
+                        <button
+                            type="button"
+                            class="tab-btn active"
+                            id="typePlayerBtn"
+                        >
+                            <span class="tab-title">Ảnh Load Trận</span>
+                        </button>
+                        <button
+                            type="button"
+                            class="tab-btn"
+                            id="typeFlowbornBtn"
+                        >
+                            <span class="tab-title">Ảnh Load Flowborn</span>
+                        </button>
+                    </div>
+                    <button class="btn-primary" id="goToGameBtn">
+                        <span>Chuyển tới trang game</span>
+                        <svg
+                            viewBox="0 0 24 24"
+                            width="16"
+                            height="16"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            style="margin-left: 6px"
+                        >
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="app-card faq-card">
+                <div class="camp-with-title">
+                    <div class="camp-with-title__title">
+                        Thông Tin & Giải Đáp (FAQ)
+                    </div>
+                    <div class="camp-with-title__content">
+                        <div class="faq-list">
+                            <div class="faq-item">
+                                <button type="button" class="faq-question">
+                                    <span
+                                        >1. Hướng dẫn cách đổi Ảnh Load Trận &
+                                        Ảnh Load Flowborn?</span
+                                    >
+                                    <svg
+                                        class="faq-chevron"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2.2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <polyline
+                                            points="6 9 12 15 18 9"
+                                        ></polyline>
+                                    </svg>
+                                </button>
+                                <div class="faq-answer">
+                                    <div class="faq-tag-disclaimer">
+                                        Client-side Script Injection
+                                    </div>
+                                    <p>
+                                        Dự án tiện ích do
+                                        <strong>Honaki</strong> phát triển độc
+                                        lập. Cách thực hiện cho từng loại:
+                                    </p>
+
+                                    <div style="margin-top: 8px">
+                                        <strong style="color: #ffd873"
+                                            >Đối với Ảnh Load Trận:</strong
+                                        >
+                                        <ol class="faq-steps">
+                                            <li>
+                                                Dán Link hoặc chọn File HAR ➔
+                                                Bấm
+                                                <strong
+                                                    >Chuyển tới trang
+                                                    game</strong
+                                                >.
+                                            </li>
+                                            <li>
+                                                Tại trang webview poster, dán và
+                                                chạy đoạn
+                                                <strong
+                                                    >Code Inject
+                                                    (Bookmarklet)</strong
+                                                >.
+                                            </li>
+                                            <li>
+                                                Nút tải ảnh sẽ xuất hiện ngay để
+                                                bạn chọn, crop và áp dụng ảnh
+                                                mới.
+                                            </li>
+                                        </ol>
+                                    </div>
+
+                                    <div style="margin-top: 10px">
+                                        <strong style="color: #ffd873"
+                                            >Đối với Ảnh Load Flowborn (Lưu ý
+                                            quan trọng):</strong
+                                        >
+                                        <ol class="faq-steps">
+                                            <li>
+                                                Chọn tab
+                                                <strong
+                                                    >Ảnh Load Flowborn</strong
+                                                >
+                                                ➔ Bấm
+                                                <strong
+                                                    >Chuyển tới trang
+                                                    game</strong
+                                                >.
+                                            </li>
+                                            <li>
+                                                <strong style="color: #ff0000"
+                                                    >Bắt buộc phải tạo một nhãn
+                                                    dán (Sticker) mới</strong
+                                                >
+                                                trên giao diện Flowborn trước.
+                                            </li>
+                                            <li>
+                                                Sau khi đã tạo nhãn dán xong,
+                                                tiến hành chạy đoạn
+                                                <strong
+                                                    >Code Inject
+                                                    (Bookmarklet)</strong
+                                                >
+                                                ➔ Nút tải ảnh sẽ hiển thị để bạn
+                                                đổi ảnh bình thường.
+                                            </li>
+                                        </ol>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <button type="button" class="faq-question">
+                                    <span
+                                        >2. Công cụ này có thuộc Garena không &
+                                        Tuyên bố bản quyền ra sao?</span
+                                    >
+                                    <svg
+                                        class="faq-chevron"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2.2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <polyline
+                                            points="6 9 12 15 18 9"
+                                        ></polyline>
+                                    </svg>
+                                </button>
+                                <div class="faq-answer">
+                                    <p>
+                                        <strong
+                                            >Tuyên bố sở hữu trí tuệ:</strong
+                                        >
+                                        Liên Quân Mobile, Arena of Valor và AOV
+                                        Camp là các thương hiệu và tài sản trí
+                                        tuệ thuộc quyền sở hữu của
+                                        <strong>Garena</strong> và
+                                        <strong
+                                            >Tencent Games / TiMi Studio
+                                            Group</strong
+                                        >.
+                                    </p>
+                                    <p style="margin-top: 6px">
+                                        <strong>Dự án phi thương mại:</strong>
+                                        Đây là công cụ tiện ích cá nhân do
+                                        <strong>Honaki</strong> tự nghiên cứu và
+                                        phát triển độc lập nhằm hỗ trợ người
+                                        chơi, hoàn toàn không có mục đích thương
+                                        mại, không liên kết, không thuộc quyền
+                                        quản lý hay được ủy quyền bởi nhà phát
+                                        hành.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <button type="button" class="faq-question">
+                                    <span
+                                        >3. Đổi ảnh load trận Liên Quân có an
+                                        toàn và có bị khóa nick không?</span
+                                    >
+                                    <svg
+                                        class="faq-chevron"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2.2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <polyline
+                                            points="6 9 12 15 18 9"
+                                        ></polyline>
+                                    </svg>
+                                </button>
+                                <div class="faq-answer">
+                                    <p>
+                                        <strong style="color: #ff0000"
+                                            >Cảnh báo có rủi ro:</strong
+                                        >
+                                        Mặc dù đoạn mã Script chỉ thực thi cục
+                                        bộ trên trình duyệt (Client-side), hiện
+                                        tại nhà phát hành game đã bắt đầu áp
+                                        dụng các chính sách rà soát và có thể áp
+                                        dụng án phạt/khóa tài khoản đối với các
+                                        hành vi can thiệp tùy chỉnh ảnh poster.
+                                    </p>
+                                    <p style="margin-top: 6px">
+                                        Bạn nên cân nhắc kỹ trước khi trải
+                                        nghiệm và tự chịu trách nhiệm đối với
+                                        tài khoản game cá nhân của mình.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="faq-item">
+                                <button type="button" class="faq-question">
+                                    <span
+                                        >4. Web có lưu trữ Token hay thông tin
+                                        tài khoản không?</span
+                                    >
+                                    <svg
+                                        class="faq-chevron"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2.2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <polyline
+                                            points="6 9 12 15 18 9"
+                                        ></polyline>
+                                    </svg>
+                                </button>
+                                <div class="faq-answer">
+                                    <strong>Không bao giờ.</strong> Mọi tác vụ
+                                    phân tích file HAR, bóc tách token hoặc tạo
+                                    URL đều xử lý trực tiếp trên trình duyệt của
+                                    bạn. Hệ thống máy chủ không lưu trữ bất kỳ
+                                    dữ liệu cá nhân hay file tải lên nào.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-credit">
+                <span>Made with</span>
+                <span class="footer-heart">♥</span>
+                <span>by</span>
+                <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://fb.com/honaki10"
+                    class="footer-author"
+                    >Honaki</a
+                >
+            </div>
+        </main>
+
+        <script src="assets/js/app.js?v=0.0.15"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const faqItems = document.querySelectorAll(".faq-item");
+                faqItems.forEach((item) => {
+                    const btn = item.querySelector(".faq-question");
+                    if (btn) {
+                        btn.addEventListener("click", () => {
+                            const isActive = item.classList.contains("active");
+                            faqItems.forEach((i) =>
+                                i.classList.remove("active"),
+                            );
+                            if (!isActive) {
+                                item.classList.add("active");
+                            } else {
+                                requestAnimationFrame(() => {
+                                    const maxScroll = Math.max(
+                                        0,
+                                        document.documentElement.scrollHeight -
+                                            window.innerHeight,
+                                    );
+                                    if (window.scrollY > maxScroll) {
+                                        window.scrollTo({
+                                            top: maxScroll,
+                                            behavior: "smooth",
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>
