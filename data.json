@@ -4,5 +4,11 @@
         "image": "aov_preview.png",
         "redirect": "/aov",
         "github": "https://github.com/honaki-dev/aov"
+    },
+    {
+        "name": "STEM: Cẩm nang chống lừa đảo trên không gian mạng.",
+        "image": "cld_preview.png",
+        "redirect": "/cld",
+        "github": "https://github.com/honaki-dev/cld"
     }
 ]
