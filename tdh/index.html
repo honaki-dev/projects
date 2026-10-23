@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>TDH Control</title>
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐧</text></svg>"
+        />
+        <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+        <style>
+            :root {
+                --bg: #0b0f19;
+                --card-bg: #151d2e;
+                --card-border: #222f46;
+                --primary: #38bdf8;
+                --primary-glow: rgba(56, 189, 248, 0.25);
+                --success: #22c55e;
+                --danger: #ef4444;
+                --warning: #f59e0b;
+                --text: #f8fafc;
+                --text-muted: #94a3b8;
+            }
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    Helvetica, Arial, sans-serif;
+            }
+            body {
+                background-color: var(--bg);
+                color: var(--text);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                min-height: 100vh;
+                padding: 24px 16px;
+            }
+            .container {
+                width: 100%;
+                max-width: 460px;
+                display: flex;
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            /* Top Bar */
+            .top-bar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 2px 2px;
+            }
+            .brand h1 {
+                font-size: 1.35rem;
+                font-weight: 700;
+                letter-spacing: -0.3px;
+                color: #fff;
+            }
+            .brand p {
+                font-size: 0.8rem;
+                color: var(--text-muted);
+                margin-top: 2px;
+            }
+
+            .top-actions {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 5px 12px;
+                border-radius: 20px;
+                font-size: 0.75rem;
+                font-weight: 600;
+                background: #1e293b;
+                color: var(--text-muted);
+                border: 1px solid var(--card-border);
+                transition: all 0.3s ease;
+            }
+            .badge .dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #64748b;
+            }
+            .badge.connected {
+                background: rgba(34, 197, 94, 0.12);
+                color: #4ade80;
+                border-color: rgba(34, 197, 94, 0.3);
+            }
+            .badge.connected .dot {
+                background: #22c55e;
+                box-shadow: 0 0 8px #22c55e;
+            }
+            .badge.disconnected {
+                background: rgba(239, 68, 68, 0.12);
+                color: #f87171;
+                border-color: rgba(239, 68, 68, 0.3);
+            }
+            .badge.disconnected .dot {
+                background: #ef4444;
+            }
+
+            .btn-settings {
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                color: var(--text-muted);
+                width: 34px;
+                height: 34px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 1rem;
+                transition: all 0.2s;
+            }
+            .btn-settings:hover {
+                color: #fff;
+                border-color: #475569;
+                background: #1e293b;
+            }
+
+            /* Rooms Grid */
+            .rooms-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 14px;
+            }
+            .room-card {
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 16px;
+                padding: 18px 16px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                min-height: 110px;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                cursor: pointer;
+                user-select: none;
+                position: relative;
+            }
+            .room-card:active {
+                transform: scale(0.97);
+            }
+            .room-card.active {
+                border-color: rgba(56, 189, 248, 0.45);
+                background: linear-gradient(145deg, #182338, #1a2740);
+                box-shadow: 0 8px 24px var(--primary-glow);
+            }
+            .room-top {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .room-icon {
+                font-size: 1.75rem;
+                filter: grayscale(90%) opacity(0.65);
+                transition: all 0.25s ease;
+            }
+            .room-card.active .room-icon {
+                filter: grayscale(0%) opacity(1);
+                transform: scale(1.05);
+            }
+            .room-name {
+                font-size: 0.95rem;
+                font-weight: 600;
+                color: #94a3b8;
+                margin-top: 16px;
+                transition: color 0.25s ease;
+            }
+            .room-card.active .room-name {
+                color: #f8fafc;
+            }
+
+            /* Switch with Centered Spinner */
+            .switch-wrapper {
+                position: relative;
+                width: 44px;
+                height: 24px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .switch {
+                width: 44px;
+                height: 24px;
+                background: #253147;
+                border-radius: 12px;
+                transition:
+                    background 0.25s,
+                    opacity 0.25s;
+                position: relative;
+            }
+            .room-card.active .switch {
+                background: var(--primary);
+            }
+            .switch::after {
+                content: "";
+                position: absolute;
+                top: 2px;
+                left: 2px;
+                width: 20px;
+                height: 20px;
+                background: #fff;
+                border-radius: 50%;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+                transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .room-card.active .switch::after {
+                transform: translateX(20px);
+            }
+
+            /* Spinner centered perfectly in place of switch */
+            .spinner {
+                display: none;
+                position: absolute;
+                width: 18px;
+                height: 18px;
+                border: 2px solid rgba(255, 255, 255, 0.25);
+                border-top-color: #fff;
+                border-radius: 50%;
+                animation: spin 0.8s linear infinite;
+                z-index: 2;
+            }
+            @keyframes spin {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            /* Locked state */
+            .room-card.locked {
+                pointer-events: none;
+                cursor: not-allowed;
+            }
+            .room-card.locked .switch {
+                opacity: 0.25;
+            }
+            .room-card.locked .spinner {
+                display: block;
+            }
+
+            /* Disabled when Alert Mode is Active */
+            .room-card.disabled-alert,
+            .btn.disabled-alert {
+                pointer-events: none !important;
+                opacity: 0.35 !important;
+                filter: grayscale(80%);
+                cursor: not-allowed !important;
+            }
+
+            .btn.locked {
+                pointer-events: none;
+                opacity: 0.5;
+                cursor: not-allowed;
+            }
+
+            /* Quick Action Buttons */
+            .actions {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+                margin-top: 2px;
+            }
+            .btn {
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                border-radius: 14px;
+                padding: 14px 10px;
+                color: #cbd5e1;
+                font-size: 0.82rem;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 8px;
+                transition: all 0.2s;
+            }
+            .btn:hover {
+                background: #1e293b;
+                border-color: #334155;
+            }
+            .btn:active {
+                transform: scale(0.97);
+            }
+            .btn .btn-icon {
+                font-size: 1.25rem;
+            }
+            .btn.active-alert {
+                border-color: var(--warning);
+                color: var(--warning);
+                background: rgba(245, 158, 11, 0.15);
+                animation: alertPulse 1.2s infinite alternate;
+            }
+            @keyframes alertPulse {
+                from {
+                    box-shadow: 0 0 4px rgba(245, 158, 11, 0.2);
+                }
+                to {
+                    box-shadow: 0 0 14px rgba(245, 158, 11, 0.6);
+                }
+            }
+
+            /* Settings Modal */
+            .modal-overlay {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.65);
+                backdrop-filter: blur(4px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                z-index: 100;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s ease;
+            }
+            .modal-overlay.open {
+                opacity: 1;
+                pointer-events: auto;
+            }
+            .modal {
+                background: #151d2e;
+                border: 1px solid var(--card-border);
+                border-radius: 16px;
+                width: 100%;
+                max-width: 400px;
+                padding: 20px;
+                box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+            }
+            .modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            .modal-header h2 {
+                font-size: 1.1rem;
+                color: #fff;
+            }
+            .modal-close {
+                background: none;
+                border: none;
+                color: var(--text-muted);
+                font-size: 1.2rem;
+                cursor: pointer;
+                padding: 4px;
+            }
+            .modal-close:hover {
+                color: #fff;
+            }
+            .modal-body label {
+                display: block;
+                font-size: 0.8rem;
+                color: var(--text-muted);
+                margin-bottom: 6px;
+            }
+            .modal-body input {
+                width: 100%;
+                background: #0b0f19;
+                border: 1px solid var(--card-border);
+                border-radius: 8px;
+                padding: 10px 12px;
+                color: #fff;
+                font-size: 0.9rem;
+                outline: none;
+            }
+            .modal-body input:focus {
+                border-color: var(--primary);
+            }
+            .modal-body .hint {
+                font-size: 0.72rem;
+                color: var(--text-muted);
+                margin-top: 6px;
+            }
+            .modal-footer {
+                display: flex;
+                justify-content: flex-end;
+                gap: 10px;
+            }
+            .modal-footer button {
+                padding: 8px 16px;
+                border-radius: 8px;
+                font-size: 0.85rem;
+                font-weight: 600;
+                cursor: pointer;
+                border: none;
+            }
+            .btn-secondary {
+                background: #1e293b;
+                color: #cbd5e1;
+            }
+            .btn-secondary:hover {
+                background: #334155;
+            }
+            .btn-primary {
+                background: var(--primary);
+                color: #0b0f19;
+            }
+            .btn-primary:hover {
+                opacity: 0.9;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="brand">
+                    <h1>TDH Control</h1>
+                    <p id="subTitle">Hệ thống sẵn sàng</p>
+                </div>
+                <div class="top-actions">
+                    <div id="connBadge" class="badge disconnected">
+                        <span class="dot"></span>
+                        <span id="connText">Kết nối...</span>
+                    </div>
+                    <button
+                        class="btn-settings"
+                        onclick="openModal()"
+                        title="Cài đặt"
+                    >
+                        ⚙️
+                    </button>
+                </div>
+            </div>
+
+            <!-- Rooms Grid -->
+            <div class="rooms-grid">
+                <!-- Room 0 -->
+                <div class="room-card" id="card-0" onclick="toggleRoom(0)">
+                    <div class="room-top">
+                        <span class="room-icon">🛋️</span>
+                        <div class="switch-wrapper">
+                            <div class="switch"></div>
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <div class="room-name">Phòng khách</div>
+                </div>
+
+                <!-- Room 1 -->
+                <div class="room-card" id="card-1" onclick="toggleRoom(1)">
+                    <div class="room-top">
+                        <span class="room-icon">🍳</span>
+                        <div class="switch-wrapper">
+                            <div class="switch"></div>
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <div class="room-name">Phòng bếp</div>
+                </div>
+
+                <!-- Room 2 -->
+                <div class="room-card" id="card-2" onclick="toggleRoom(2)">
+                    <div class="room-top">
+                        <span class="room-icon">🚿</span>
+                        <div class="switch-wrapper">
+                            <div class="switch"></div>
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <div class="room-name">Nhà vệ sinh</div>
+                </div>
+
+                <!-- Room 3 -->
+                <div class="room-card" id="card-3" onclick="toggleRoom(3)">
+                    <div class="room-top">
+                        <span class="room-icon">🛏️</span>
+                        <div class="switch-wrapper">
+                            <div class="switch"></div>
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                    <div class="room-name">Phòng ngủ</div>
+                </div>
+            </div>
+
+            <!-- Quick Action Buttons -->
+            <div class="actions">
+                <button class="btn" onclick="allRooms(1)">
+                    <span class="btn-icon">💡</span>
+                    <span>Bật tất cả</span>
+                </button>
+                <button class="btn" onclick="allRooms(0)">
+                    <span class="btn-icon">🌑</span>
+                    <span>Tắt tất cả</span>
+                </button>
+                <button class="btn" id="btnAlert" onclick="toggleAlert()">
+                    <span class="btn-icon">🚨</span>
+                    <span>Cảnh báo</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Settings Modal -->
+        <div
+            class="modal-overlay"
+            id="settingsModal"
+            onclick="onOverlayClick(event)"
+        >
+            <div class="modal">
+                <div class="modal-header">
+                    <h2>Cài đặt kết nối</h2>
+                    <button class="modal-close" onclick="closeModal()">
+                        ✕
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="topicInput"
+                        >Địa chỉ MAC hoặc Mã thiết bị:</label
+                    >
+                    <input
+                        type="text"
+                        id="topicInput"
+                        value="tdh_device_20500d329f2c"
+                        placeholder="Ví dụ: aabbccddeeff..."
+                    />
+                    <div class="hint">
+                        Nhập địa chỉ MAC in trên màn hình Serial của ESP32.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn-secondary" onclick="closeModal()">
+                        Đóng
+                    </button>
+                    <button class="btn-primary" onclick="saveSettings()">
+                        Lưu kết nối
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function normalizeTopic(input) {
+                let val = input.trim().toLowerCase();
+                val = val.replace(/[:\s-]/g, "");
+                if (!val.startsWith("tdh_device_")) {
+                    val = "tdh_device_" + val;
+                }
+                return val;
+            }
+
+            let topicPrefix = localStorage.getItem("mqtt_topic") || "";
+            if (topicPrefix) {
+                document.getElementById("topicInput").value = topicPrefix;
+                document.getElementById("subTitle").innerText =
+                    "Thiết bị: " + topicPrefix.replace("tdh_device_", "");
+            }
+
+            let subTopic = topicPrefix ? `${topicPrefix}/status` : "";
+            let pubTopic = topicPrefix ? `${topicPrefix}/cmd` : "";
+
+            const brokerUrl = "wss://broker.emqx.io:8084/mqtt";
+            const clientId =
+                "TDH-Web-" + Math.random().toString(16).substr(2, 8);
+
+            const connBadge = document.getElementById("connBadge");
+            const connText = document.getElementById("connText");
+
+            const client = mqtt.connect(brokerUrl, {
+                clientId: clientId,
+                clean: true,
+                connectTimeout: 5000,
+                reconnectPeriod: 2000,
+            });
+
+            client.on("connect", () => {
+                connBadge.className = "badge connected";
+                connText.innerText = "Trực tuyến";
+
+                if (subTopic) {
+                    client.subscribe(subTopic, (err) => {
+                        if (!err) {
+                            sendCommand("GET_STATUS");
+                        }
+                    });
+                } else {
+                    openModal();
+                }
+            });
+
+            client.on("reconnect", () => {
+                connBadge.className = "badge disconnected";
+                connText.innerText = "Kết nối lại...";
+            });
+
+            client.on("offline", () => {
+                connBadge.className = "badge disconnected";
+                connText.innerText = "Ngoại tuyến";
+            });
+
+            client.on("error", () => {
+                connBadge.className = "badge disconnected";
+                connText.innerText = "Lỗi mạng";
+            });
+
+            client.on("message", (topic, message) => {
+                try {
+                    const payload = JSON.parse(message.toString());
+                    renderState(payload);
+                } catch (e) {}
+            });
+
+            let currentLeds = [0, 0, 0, 0];
+            let currentBlink = 0;
+            let pendingRoomTimeouts = [null, null, null, null];
+            let pendingAlertTimeout = null;
+            let pendingAllTimeout = null;
+
+            function renderState(data) {
+                if (Array.isArray(data.leds)) {
+                    currentLeds = [...data.leds];
+                    data.leds.forEach((state, i) => {
+                        unlockRoom(i);
+                        updateCardUI(i, state);
+                    });
+                }
+
+                currentBlink = data.blink || 0;
+                unlockAlert();
+                updateAlertUI(currentBlink);
+                unlockAllBtn();
+
+                // Khi bật cảnh báo, vô hiệu hóa thẻ đèn và nút bật/tắt tất cả
+                const isAlertOn = currentBlink === 1;
+                for (let i = 0; i < 4; i++) {
+                    const card = document.getElementById(`card-${i}`);
+                    if (card) {
+                        if (isAlertOn) card.classList.add("disabled-alert");
+                        else card.classList.remove("disabled-alert");
+                    }
+                }
+                document
+                    .querySelectorAll(".actions .btn:not(#btnAlert)")
+                    .forEach((btn) => {
+                        if (isAlertOn) btn.classList.add("disabled-alert");
+                        else btn.classList.remove("disabled-alert");
+                    });
+
+                const subTitle = document.getElementById("subTitle");
+                if (subTitle) {
+                    if (isAlertOn) {
+                        subTitle.innerText = "🚨 Chế độ Cảnh báo đang bật";
+                        subTitle.style.color = "var(--warning)";
+                    } else {
+                        subTitle.innerText = topicPrefix
+                            ? "Thiết bị: " +
+                              topicPrefix.replace("tdh_device_", "")
+                            : "Hệ thống sẵn sàng";
+                        subTitle.style.color = "var(--text-muted)";
+                    }
+                }
+            }
+
+            function unlockRoom(i) {
+                if (pendingRoomTimeouts[i]) {
+                    clearTimeout(pendingRoomTimeouts[i]);
+                    pendingRoomTimeouts[i] = null;
+                }
+                const card = document.getElementById(`card-${i}`);
+                if (card) card.classList.remove("locked");
+            }
+
+            function lockRoom(i) {
+                const card = document.getElementById(`card-${i}`);
+                if (card) card.classList.add("locked");
+
+                if (pendingRoomTimeouts[i])
+                    clearTimeout(pendingRoomTimeouts[i]);
+                pendingRoomTimeouts[i] = setTimeout(() => {
+                    unlockRoom(i);
+                }, 3500);
+            }
+
+            function unlockAlert() {
+                if (pendingAlertTimeout) {
+                    clearTimeout(pendingAlertTimeout);
+                    pendingAlertTimeout = null;
+                }
+                const btn = document.getElementById("btnAlert");
+                if (btn) btn.classList.remove("locked");
+            }
+
+            function unlockAllBtn() {
+                if (pendingAllTimeout) {
+                    clearTimeout(pendingAllTimeout);
+                    pendingAllTimeout = null;
+                }
+                document
+                    .querySelectorAll(".actions .btn")
+                    .forEach((b) => b.classList.remove("locked"));
+            }
+
+            function updateCardUI(i, state) {
+                const card = document.getElementById(`card-${i}`);
+                if (card) {
+                    if (state === 1) {
+                        card.classList.add("active");
+                    } else {
+                        card.classList.remove("active");
+                    }
+                }
+            }
+
+            function updateAlertUI(blink) {
+                const btnAlert = document.getElementById("btnAlert");
+                if (btnAlert) {
+                    if (blink === 1) {
+                        btnAlert.classList.add("active-alert");
+                    } else {
+                        btnAlert.classList.remove("active-alert");
+                    }
+                }
+            }
+
+            function toggleRoom(roomIdx) {
+                if (currentBlink === 1) return;
+                const card = document.getElementById(`card-${roomIdx}`);
+                if (card && card.classList.contains("locked")) return;
+
+                lockRoom(roomIdx);
+                const targetState = currentLeds[roomIdx] ? 0 : 1;
+                sendCommand(`SET:${roomIdx}:${targetState}`);
+            }
+
+            function allRooms(state) {
+                if (currentBlink === 1) return;
+                for (let i = 0; i < 4; i++) lockRoom(i);
+                document
+                    .querySelectorAll(".actions .btn:not(#btnAlert)")
+                    .forEach((b) => b.classList.add("locked"));
+                if (pendingAllTimeout) clearTimeout(pendingAllTimeout);
+                pendingAllTimeout = setTimeout(() => {
+                    unlockAllBtn();
+                    for (let i = 0; i < 4; i++) unlockRoom(i);
+                }, 3500);
+
+                sendCommand(state ? "ALL:1" : "ALL:0");
+            }
+
+            function toggleAlert() {
+                const btn = document.getElementById("btnAlert");
+                if (btn && btn.classList.contains("locked")) return;
+
+                btn.classList.add("locked");
+                if (pendingAlertTimeout) clearTimeout(pendingAlertTimeout);
+                pendingAlertTimeout = setTimeout(() => {
+                    unlockAlert();
+                }, 3500);
+
+                sendCommand("BLINK:TOGGLE");
+            }
+
+            function sendCommand(cmd) {
+                if (client && client.connected) {
+                    if (!pubTopic) {
+                        openModal();
+                        return;
+                    }
+                    client.publish(pubTopic, cmd);
+                } else {
+                    alert("Chưa kết nối máy chủ! Vui lòng kiểm tra lại mạng.");
+                }
+            }
+
+            // Modal controls
+            const modal = document.getElementById("settingsModal");
+            function openModal() {
+                modal.classList.add("open");
+            }
+            function closeModal() {
+                modal.classList.remove("open");
+            }
+            function onOverlayClick(e) {
+                if (e.target === modal) closeModal();
+            }
+
+            function saveSettings() {
+                const rawVal = document
+                    .getElementById("topicInput")
+                    .value.trim();
+                if (!rawVal) {
+                    alert("Vui lòng nhập địa chỉ MAC!");
+                    return;
+                }
+                const val = normalizeTopic(rawVal);
+                document.getElementById("topicInput").value = val;
+                localStorage.setItem("mqtt_topic", val);
+                document.getElementById("subTitle").innerText =
+                    "Thiết bị: " + val.replace("tdh_device_", "");
+
+                if (subTopic && client && client.connected) {
+                    client.unsubscribe(subTopic);
+                }
+                topicPrefix = val;
+                subTopic = `${topicPrefix}/status`;
+                pubTopic = `${topicPrefix}/cmd`;
+
+                if (client && client.connected) {
+                    client.subscribe(subTopic);
+                    sendCommand("GET_STATUS");
+                }
+                closeModal();
+            }
+        </script>
+    </body>
+</html>

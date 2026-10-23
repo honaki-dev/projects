@@ -10,5 +10,11 @@
         "image": "cld_preview.png",
         "redirect": "/cld",
         "github": "https://github.com/honaki-dev/cld"
+    },
+    {
+        "name": "TDH Control",
+        "image": "tdh.png",
+        "redirect": "/tdh",
+        "github": "https://github.com/honaki-dev/tdh-control"
     }
 ]
